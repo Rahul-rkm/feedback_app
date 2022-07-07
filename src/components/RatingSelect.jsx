@@ -8,6 +8,14 @@ function RatingSelect({ select }) {
     const [selected, setSelected] = useState(10);
 
     useEffect(() => {
+        // To show the initial default rating highlighted
+        setTimeout(() => {
+            setSelected(10);
+            console.log('done');
+        }, 100);
+    }, [])
+
+    useEffect(() => {
         setSelected(feedbackEditItem.item.rating)
     }, [feedbackEditItem])
 

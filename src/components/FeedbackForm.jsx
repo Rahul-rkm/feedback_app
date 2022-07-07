@@ -8,9 +8,11 @@ import FeedbackContext from '../context/FeedbackContext';
 function FeedbackForm() {
     const { addFeedback, feedbackEditItem, updateFeedback } = useContext(FeedbackContext);
     const [text, setText] = useState('');
-    const [rating, setRating] = useState(10);
+    const [rating, setRating] = useState(1);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [hint, setHint] = useState('');
+
+
     useEffect(() => {
         if (feedbackEditItem.edit === true) {
             setBtnDisabled(false);
