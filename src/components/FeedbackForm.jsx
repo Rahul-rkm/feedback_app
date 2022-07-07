@@ -1,14 +1,24 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Card from './shared/Card'
 import { useState } from 'react'
 import Button from './shared/Button';
 import RatingSelect from './RatingSelect';
+import FeedbackContext from '../context/FeedbackContext';
 
-function FeedbackForm({handleAdd}) {
+function FeedbackForm() {
+    const { addFeedback, feedbackEditItem, updateFeedback } = useContext(FeedbackContext);
     const [text, setText] = useState('');
     const [rating, setRating] = useState(10);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [hint, setHint] = useState('');
+    useEffect(() => {
+        if (feedbackEditItem.edit === true) {
+            setBtnDisabled(false);
+            setText(feedbackEditItem.item.text);
+            setRating(feedbackEditItem.item.rating)
+        }
+    }, [feedbackEditItem])
+
     const handleTextChange = (e) => {
         // This set of if else blocks set the message and disabled property of btn
         if (text === '') {
@@ -34,8 +44,13 @@ function FeedbackForm({handleAdd}) {
                 rating,
                 text
             }
-            
-            handleAdd(newFeedback);
+
+            if (feedbackEditItem.edit === true) {
+                updateFeedback(feedbackEditItem.item.id, newFeedback)
+            }
+            else {
+                addFeedback(newFeedback);
+            }
             setText('');
             setBtnDisabled(true);
         }
