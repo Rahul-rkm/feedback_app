@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AboutIconLink from './components/AboutIconLink';
 import Header from "./components/Header";
 import FeedbackList from "./components/FeedbackList";
 import FeedbackData from './data/FeedbackData';
@@ -27,11 +28,11 @@ function App() {
 
     return (
         <>
-            <Header style={{ border: '5px solid red' }} />
-            <div className="container">
-                <Router>
+            <Router>
+                <Header style={{ border: '5px solid red' }} />
+                <div className="container">
                     <Routes>
-                        <Route exact path='/' element={
+                        <Route path='/' element={
                             <>
                                 <FeedbackForm handleAdd={addFeedback} />
                                 <FeedbackStats feedback={feeddback} />
@@ -41,9 +42,9 @@ function App() {
                         </Route>
                         <Route path='/about' element={<AboutPage />} />
                     </Routes>
-
-                </Router>
-            </div>
+                </div>
+                <AboutIconLink />
+            </Router>
         </>
     )
 

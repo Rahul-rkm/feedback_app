@@ -95,7 +95,7 @@ header {
   opacity: 0;
 }
 
-[type='radio']:checked ~ label {
+[type='radio']:checked~label {
   background: #ff6a95;
   color: #fff;
 }
@@ -188,6 +188,9 @@ input:focus {
 /* FIX: Remove position: absolute to keep about icon at the bottom of the
  * document */
 .about-link {
+  position: fixed;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: flex-end;
 }
