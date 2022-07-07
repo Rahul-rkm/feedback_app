@@ -8,7 +8,7 @@ import FeedbackContext from '../context/FeedbackContext';
 function FeedbackForm() {
     const { addFeedback, feedbackEditItem, updateFeedback } = useContext(FeedbackContext);
     const [text, setText] = useState('');
-    const [rating, setRating] = useState(1);
+    const [rating, setRating] = useState(10);
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [hint, setHint] = useState('');
 
@@ -22,8 +22,10 @@ function FeedbackForm() {
     }, [feedbackEditItem])
 
     const handleTextChange = (e) => {
+        setText(() => e.target.value);
         // This set of if else blocks set the message and disabled property of btn
-        if (text === '') {
+        //
+        if (text.trim === '') {
             setBtnDisabled(true);
             setHint(null);
         }
@@ -31,11 +33,10 @@ function FeedbackForm() {
             setBtnDisabled(true);
             setHint('Text must have atleast 10 characters');
         }
-        else {
+        else if (text.trim().length >= 10) {
             setBtnDisabled(false);
             setHint(null);
         }
-        setText(() => e.target.value);
 
     }
 
@@ -67,7 +68,7 @@ function FeedbackForm() {
                     <input onInput={handleTextChange} type='text' value={text} placeholder='Write a review'></input>
                     <Button type='submit' isDisabled={btnDisabled} version={'secondary'}>Submit</Button>
                 </div>
-                {hint && <div className='message'>{hint}</div>}
+                {text.trim().length < 10 && <div className='message'>{hint}</div>}
             </form>
         </Card>
     )
