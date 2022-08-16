@@ -23,17 +23,22 @@ function FeedbackForm() {
 
     const handleTextChange = (e) => {
         setText(() => e.target.value);
+        let lenOfText = e.target.value.trim().length;
         // This set of if else blocks set the message and disabled property of btn
         //
-        if (text.trim === '') {
+        if (e.target.value.trim() === '') {
             setBtnDisabled(true);
-            setHint(null);
+            if (e.target.value.length === 0)
+                setHint(null);
+            else if (e.target.value.length > 0)
+                setHint('Text must have atleast 10 characters');
         }
-        else if (text.trim().length < 10) {
+
+        else if (lenOfText < 10) {
             setBtnDisabled(true);
             setHint('Text must have atleast 10 characters');
         }
-        else if (text.trim().length >= 10) {
+        else if (lenOfText >= 10) {
             setBtnDisabled(false);
             setHint(null);
         }
